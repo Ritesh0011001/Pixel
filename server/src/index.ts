@@ -7,7 +7,7 @@ const app = new Hono();
 app.use(
   "/api/v1/*",
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://pixel-self-nine.vercel.app"],
   })
 );
 
