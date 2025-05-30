@@ -9,3 +9,8 @@ export const isMnemonicEmptyState = atom({
   key: "isMnemonicEmptyState",
   default: true,
 });
+
+export const userState = atom({
+  key: "userState",
+  default: "",
+});

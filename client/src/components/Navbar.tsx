@@ -1,10 +1,11 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { isMnemonicEmptyState } from "@/store/atoms/globalAtoms";
+import { isMnemonicEmptyState, userState } from "@/store/atoms/globalAtoms";
 import Logo from "./Logo";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [name, setName] = useRecoilState(userState);
   const isMnemonicEmpty = useRecoilValue(isMnemonicEmptyState);
 
   return (
@@ -21,9 +22,17 @@ const Navbar = () => {
       </div>
 
       <div className="flex font-bold space-x-2 md:space-x-4">
-        {!isMnemonicEmpty && (
+        {name && (
           <div className="py-2 px-4 text-red-300 bg-gray-700 hover:bg-gray-600 cursor-pointer rounded-lg transition duration-300">
-            <button onClick={() => navigate("/")}>Logout</button>
+            <button
+              onClick={() => {
+                localStorage.clear();
+                setName("");
+                navigate("/login");
+              }}
+            >
+              Logout
+            </button>
           </div>
         )}
 
