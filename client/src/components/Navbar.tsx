@@ -1,14 +1,14 @@
 import { useRecoilValue } from "recoil";
-import Logo from "./Logo";
-import { isMnemonicEmptyState } from "../store/atoms/globalAtoms";
 import { useNavigate } from "react-router-dom";
+import { isMnemonicEmptyState } from "@/store/atoms/globalAtoms";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const isMnemonicEmpty = useRecoilValue(isMnemonicEmptyState);
 
   return (
-    <nav className="flex justify-between items-center px-2 md:px-4 mb-24">
+    <nav className="sticky top-0 flex justify-between items-center px-2 md:px-4 mb-24">
       <div
         className="flex items-center space-x-2 cursor-pointer"
         onClick={() => {
@@ -29,7 +29,7 @@ const Navbar = () => {
 
         <div className="py-2 px-4 text-white bg-gray-700 hover:bg-gray-600 cursor-pointer rounded-lg transition duration-300">
           <a
-            href="https://github.com/AmulGaurav/Pixel"
+            href="https://github.com/Ritesh0011001/Pixel.git"
             target="_blank"
             rel="noopener noreferrer"
           >

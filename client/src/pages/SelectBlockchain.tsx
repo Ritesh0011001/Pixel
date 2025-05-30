@@ -1,22 +1,19 @@
 import { useEffect } from "react";
-import BottomNavbar from "../components/BottomNavbar";
-import Header from "../components/Header";
-import Mnemonic from "../components/Mnemonic";
-import SupportedChains from "../components/SupportedChains";
 import { useSetRecoilState } from "recoil";
+import Header from "@/components/Header";
+import SupportedChains from "@/components/SupportedChains";
+import Mnemonic from "@/components/Mnemonic";
+import BottomNavbar from "@/components/BottomNavbar";
+import { isMnemonicEmptyState, mnemonicState } from "@/store/atoms/globalAtoms";
 import {
-  isMnemonicEmptyState,
-  mnemonicState,
-} from "../store/atoms/globalAtoms";
+  selectedBlockChainState,
+  showMnemonicState,
+} from "@/store/atoms/uiAtoms";
 import {
   currentIndexState,
   selectedWalletState,
   walletsState,
-} from "../store/atoms/walletAtoms";
-import {
-  selectedBlockChainState,
-  showMnemonicState,
-} from "../store/atoms/uiAtoms";
+} from "@/store/atoms/walletAtoms";
 
 const SelectBlockchain = () => {
   const setMnemonic = useSetRecoilState(mnemonicState);
@@ -33,8 +30,10 @@ const SelectBlockchain = () => {
     setSelectedWallet(null);
     setSelectedBlockchain(null);
 
-    if (localStorage.getItem("mnemonic")) {
-      setMnemonic(localStorage.getItem("mnemonic").split(" "));
+    const mnemonic = localStorage.getItem("mnemonic");
+
+    if (mnemonic) {
+      setMnemonic(mnemonic.split(" "));
       setShowMnemonic(false);
       setIsMnemonicEmpty(false);
     }

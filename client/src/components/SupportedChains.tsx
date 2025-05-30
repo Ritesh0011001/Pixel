@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { FaEthereum } from "react-icons/fa";
 import { SiSolana } from "react-icons/si";
-import { selectedBlockChainState } from "../store/atoms/uiAtoms";
+import { selectedBlockChainState } from "@/store/atoms/uiAtoms";
 
 const SupportedChains = () => {
   const navigate = useNavigate();
-  const setSelectedBlockChain = useSetRecoilState(selectedBlockChainState);
+  const setSelectedBlockChain = useSetRecoilState<any>(selectedBlockChainState);
 
   return (
     <div>
@@ -21,7 +21,7 @@ const SupportedChains = () => {
           className="flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
           onClick={() => {
             setSelectedBlockChain("ethereum");
-            navigate("/ethereum");
+            navigate("/blockchain/ethereum");
           }}
         >
           <div>
@@ -34,7 +34,7 @@ const SupportedChains = () => {
           className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
           onClick={() => {
             setSelectedBlockChain("solana");
-            navigate("/solana");
+            navigate("/blockchain/solana");
           }}
         >
           <div>

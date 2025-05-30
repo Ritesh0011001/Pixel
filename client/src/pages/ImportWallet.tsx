@@ -1,13 +1,10 @@
+import BottomNavbar from "@/components/BottomNavbar";
+import Header from "@/components/Header";
+import { isMnemonicEmptyState, mnemonicState } from "@/store/atoms/globalAtoms";
+import { showMnemonicState } from "@/store/atoms/uiAtoms";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import {
-  isMnemonicEmptyState,
-  mnemonicState,
-} from "../store/atoms/globalAtoms";
-import BottomNavbar from "../components/BottomNavbar";
-import { showMnemonicState } from "../store/atoms/uiAtoms";
-import Header from "../components/Header";
 
 const ImportWallet = () => {
   const navigate = useNavigate();
@@ -16,19 +13,19 @@ const ImportWallet = () => {
   const [mnemonic, setMnemonic] = useRecoilState(mnemonicState);
   const [is24Words, setIs24Words] = useState(false);
 
-  const handleInputChange = (index, value) => {
-    let words = value.split(" ").filter((word) => word.trim() !== "");
+  const handleInputChange = (index: any, value: any) => {
+    let words = value.split(" ").filter((word: any) => word.trim() !== "");
     if (is24Words && words.length > 24) {
       words = words.slice(0, 24);
     } else if (!is24Words && words.length > 12) {
       words = words.slice(0, 12);
     }
 
-    let newMnemonic;
+    let newMnemonic: any;
     if (words.length === 12 || words.length === 24) {
       newMnemonic = [];
 
-      words.forEach((word, i) => {
+      words.forEach((word: any, i: any) => {
         newMnemonic[i] = word;
       });
     } else {
@@ -56,7 +53,7 @@ const ImportWallet = () => {
     setIsMnemonicEmpty(false);
     setShowMnemonic(false);
     localStorage.setItem("mnemonic", mnemonic.join(" "));
-    navigate("/select-blockchain");
+    navigate("/blockchain/select");
   };
 
   return (

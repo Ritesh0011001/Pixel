@@ -1,22 +1,22 @@
+import { selectedWalletState, walletsState } from "@/store/atoms/walletAtoms";
 import { FaChevronDown } from "react-icons/fa";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { selectedWalletState, walletsState } from "../store/atoms/walletAtoms";
 
 const WalletDropdown = () => {
   const wallets = useRecoilValue(walletsState);
   const [selectedWallet, setSelectedWallet] =
-    useRecoilState(selectedWalletState);
+    useRecoilState<any>(selectedWalletState);
 
   return (
     <div className="relative">
       <select
         value={selectedWallet?.name}
         onChange={(e) =>
-          setSelectedWallet(wallets.find((w) => w.name === e.target.value))
+          setSelectedWallet(wallets.find((w: any) => w.name === e.target.value))
         }
         className="bg-gray-700 text-white py-2 pl-4 pr-8 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        {wallets.map((wallet) => (
+        {wallets.map((wallet: any) => (
           <option key={wallet.name.split(" ")[1]}>{wallet.name}</option>
         ))}
       </select>

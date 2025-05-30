@@ -6,17 +6,17 @@ import {
   selectedBlockChainState,
   showPrivateKeyState,
   showToastState,
-} from "../store/atoms/uiAtoms";
-import { selectedWalletState } from "../store/atoms/walletAtoms";
+} from "@/store/atoms/uiAtoms";
+import { selectedWalletState } from "@/store/atoms/walletAtoms";
 
 const KeyPair = () => {
   const selectedBlockchain = useRecoilValue(selectedBlockChainState);
-  const selectedWallet = useRecoilValue(selectedWalletState);
+  const selectedWallet: any = useRecoilValue(selectedWalletState);
   const setShowToast = useSetRecoilState(showToastState);
   const [showPrivateKey, setShowPrivateKey] =
     useRecoilState(showPrivateKeyState);
 
-  const copyToClipboard = (text) => {
+  const copyToClipboard = (text: any) => {
     navigator.clipboard.writeText(text);
     setShowToast(true);
   };

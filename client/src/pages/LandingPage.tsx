@@ -1,13 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { showMnemonicState } from "../store/atoms/uiAtoms";
-import {
-  isMnemonicEmptyState,
-  mnemonicState,
-} from "../store/atoms/globalAtoms";
+import { isMnemonicEmptyState, mnemonicState } from "@/store/atoms/globalAtoms";
+import { showMnemonicState } from "@/store/atoms/uiAtoms";
+import Logo from "@/components/Logo";
+import Header from "@/components/Header";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -38,13 +35,13 @@ function LandingPage() {
       <div className="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-md mx-auto space-y-4">
         <button
           className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
-          onClick={() => navigate("/create-wallet")}
+          onClick={() => navigate("/wallet/create")}
         >
           Create a new wallet
         </button>
         <button
           className="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
-          onClick={() => navigate("/import-wallet")}
+          onClick={() => navigate("/wallet/import")}
         >
           Import Wallet
         </button>

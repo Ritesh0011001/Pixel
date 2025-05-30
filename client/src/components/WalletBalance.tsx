@@ -1,9 +1,9 @@
-import { useRecoilValue } from "recoil";
-import { selectedBlockChainState } from "../store/atoms/uiAtoms";
+import { selectedBlockChainState } from "@/store/atoms/uiAtoms";
 import {
   isBalanceLoadingState,
   walletBalanceState,
-} from "../store/atoms/walletAtoms";
+} from "@/store/atoms/walletAtoms";
+import { useRecoilValue } from "recoil";
 
 const WalletBalance = () => {
   const selectedBlockchain = useRecoilValue(selectedBlockChainState);

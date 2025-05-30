@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { useLocation, useNavigate } from "react-router-dom";
-import { selectedBlockChainState } from "../store/atoms/uiAtoms";
+import { selectedBlockChainState } from "@/store/atoms/uiAtoms";
 
 const BottomNavbar = () => {
   const location = useLocation();
@@ -23,7 +23,7 @@ const BottomNavbar = () => {
             const route = location.pathname.split("/")[1];
 
             if (route !== "create-wallet" && route !== "import-wallet") {
-              navigate("/select-blockchain");
+              navigate("/blockchain/select");
             }
           }}
         ></div>

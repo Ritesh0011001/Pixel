@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { showMnemonicState } from "../store/atoms/uiAtoms";
-import Mnemonic from "../components/Mnemonic";
-import BottomNavbar from "../components/BottomNavbar";
-import Header from "../components/Header";
-import { mnemonicStringSelector } from "../store/selectors/mnemonicSelectors";
 import { generateMnemonic } from "bip39";
-import {
-  isMnemonicEmptyState,
-  mnemonicState,
-} from "../store/atoms/globalAtoms";
+import { mnemonicStringSelector } from "@/store/selectors/mnemonicSelector";
+import { isMnemonicEmptyState, mnemonicState } from "@/store/atoms/globalAtoms";
+import Header from "@/components/Header";
+import { showMnemonicState } from "@/store/atoms/uiAtoms";
+import Mnemonic from "@/components/Mnemonic";
+import BottomNavbar from "@/components/BottomNavbar";
 
 const CreateWallet = () => {
   const navigate = useNavigate();
@@ -65,7 +62,7 @@ const CreateWallet = () => {
               setShowMnemonic(false);
               setIsMnemonicEmpty(false);
               localStorage.setItem("mnemonic", mnemonicString);
-              navigate("/select-blockchain");
+              navigate("/blockchain/select");
             }}
             disabled={!isChecked}
             className={`mt-4 w-full py-2 px-4 rounded-lg text-white ${

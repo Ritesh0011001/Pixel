@@ -7,29 +7,26 @@ import KeyPair from "../components/KeyPair";
 import { derivePath } from "ed25519-hd-key";
 import { Keypair } from "@solana/web3.js";
 import nacl from "tweetnacl";
-import WalletDropdown from "../components/WalletDropdown";
-import DeleteWallet from "../components/DeleteWallet";
-import WalletBalance from "../components/WalletBalance";
-import BottomNavbar from "../components/BottomNavbar";
-import Header from "../components/Header";
-import Mnemonic from "../components/Mnemonic";
-import Shimmer from "../components/Shimmer";
+import Shimmer from "@/components/Shimmer";
+import Header from "@/components/Header";
+import WalletDropdown from "@/components/WalletDropdown";
+import DeleteWallet from "@/components/DeleteWallet";
+import WalletBalance from "@/components/WalletBalance";
+import BottomNavbar from "@/components/BottomNavbar";
+import Mnemonic from "@/components/Mnemonic";
+import { mnemonicStringSelector } from "@/store/selectors/mnemonicSelector";
+import { isMnemonicEmptyState, mnemonicState } from "@/store/atoms/globalAtoms";
+import {
+  selectedBlockChainState,
+  showMnemonicState,
+} from "@/store/atoms/uiAtoms";
 import {
   currentIndexState,
   isBalanceLoadingState,
   selectedWalletState,
   walletBalanceState,
   walletsState,
-} from "../store/atoms/walletAtoms";
-import {
-  selectedBlockChainState,
-  showMnemonicState,
-} from "../store/atoms/uiAtoms";
-import {
-  isMnemonicEmptyState,
-  mnemonicState,
-} from "../store/atoms/globalAtoms";
-import { mnemonicStringSelector } from "../store/selectors/mnemonicSelectors";
+} from "@/store/atoms/walletAtoms";
 
 const UserWallet = () => {
   const location = useLocation();
@@ -41,14 +38,14 @@ const UserWallet = () => {
   const setMnemonic = useSetRecoilState(mnemonicState);
   const [isLoading, setIsLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useRecoilState(currentIndexState);
-  const [wallets, setWallets] = useRecoilState(walletsState);
+  const [wallets, setWallets] = useRecoilState<any>(walletsState);
   const [selectedWallet, setSelectedWallet] =
-    useRecoilState(selectedWalletState);
-  const [selectedBlockChain, setSelectedBlockChain] = useRecoilState(
+    useRecoilState<any>(selectedWalletState);
+  const [selectedBlockChain, setSelectedBlockChain] = useRecoilState<any>(
     selectedBlockChainState
   );
 
-  const addWallet = (newWallet) => {
+  const addWallet = (newWallet: any) => {
     setCurrentIndex(currentIndex + 1);
     setWallets([...wallets, newWallet]);
     setSelectedWallet(newWallet);
@@ -72,24 +69,24 @@ const UserWallet = () => {
 
   const getWalletBalanceEth = async () => {
     try {
-      setIsBalanceLoading(true);
-      const response = await fetch(import.meta.env.VITE_ETH_MAINNET_API, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          jsonrpc: "2.0",
-          id: 1,
-          method: "eth_getBalance",
-          params: [selectedWallet.publicKey, "latest"],
-        }),
-      });
-      const json = await response.json();
-      setWalletBalance(json.result.split("x")[1]);
-
-      // console.log(json);
-    } catch (error) {
+      if (selectedWallet) {
+        setIsBalanceLoading(true);
+        const response = await fetch(import.meta.env.VITE_ETH_MAINNET_API, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method: "eth_getBalance",
+            params: [selectedWallet.publicKey, "latest"],
+          }),
+        });
+        const json = await response.json();
+        setWalletBalance(json.result.split("x")[1]);
+      }
+    } catch (error: any) {
       console.error(error.message);
     } finally {
       setIsBalanceLoading(false);
@@ -128,9 +125,7 @@ const UserWallet = () => {
       });
       const json = await response.json();
       setWalletBalance(json.result.value);
-
-      // console.log(json);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
     } finally {
       setIsBalanceLoading(false);
@@ -144,8 +139,10 @@ const UserWallet = () => {
   };
 
   useEffect(() => {
-    if (!selectedBlockChain) {
-      setMnemonic(localStorage.getItem("mnemonic").split(" "));
+    const mnemonic = localStorage.getItem("mnemonic");
+
+    if (!selectedBlockChain && mnemonic) {
+      setMnemonic(mnemonic.split(" "));
       setIsMnemonicEmpty(false);
       setSelectedBlockChain(location.pathname.split("/")[1]);
       setShowMnemonic(false);

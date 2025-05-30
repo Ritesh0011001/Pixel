@@ -1,6 +1,6 @@
+import { mnemonicState } from "@/store/atoms/globalAtoms";
+import { showMnemonicState, showToastState } from "@/store/atoms/uiAtoms";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { mnemonicState } from "../store/atoms/globalAtoms";
-import { showMnemonicState, showToastState } from "../store/atoms/uiAtoms";
 
 const Mnemonic = () => {
   const mnemonic = useRecoilValue(mnemonicState);
